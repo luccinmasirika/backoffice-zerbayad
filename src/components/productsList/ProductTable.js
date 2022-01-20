@@ -71,7 +71,7 @@ const CustomIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 const ProductTable =   () => {
-  const products = useSelector((store) => store.products.products.data);
+  const products = useSelector((store) => store?.products?.products?.data);
   //const isLoading = useSelector((state) => state.media.isLoading);
   const dispatch = useDispatch();
 
