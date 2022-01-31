@@ -1,9 +1,7 @@
-import LogoIcon from './logoIcon';
 import AppBar from './appBar';
 import DashboardCo from './dashboard';
+import LogoIcon from './logoIcon';
+import NewProduct from './newProduct';
+import Layout from './layout'
 
-export {
-  DashboardCo,
-  LogoIcon,
-  AppBar
-};
+export { DashboardCo, LogoIcon, AppBar, NewProduct, Layout };
