@@ -71,7 +71,7 @@ const NewProduct = () => {
   };
 
   return (
-    <Layout>
+    <div>
       <Typography
         textAlign='center'
         fontWeight={700}
@@ -196,7 +196,7 @@ const NewProduct = () => {
           </Button>
         </Box>
       </Stack>
-    </Layout>
+    </div>
   );
 };
 

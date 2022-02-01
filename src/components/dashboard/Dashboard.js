@@ -21,6 +21,7 @@ import { Stack } from '@mui/material';
 import ProductsList from '../productsList'
 import ProductTable from '../productsList/ProductTable';
 import Orders from '../orders'
+import NewProduct from '../newProduct'
 
 
 import { LogoIcon } from '../../components';
@@ -175,32 +176,18 @@ export default function Dashboard() {
         <List sx={{
           color:'white'
         }}>
-          {['Home', 'Products', 'Orders'].map((text, index) => (
+          {['Home', 'Products','New Product', 'Orders'].map((text, index) => (
               <>
             <ListItem button key={text} onClick={()=>setShowCompo(index)}>
               <ListItemIcon>
                 {index  === 0 ? <img src={homeIcon} alt="Logo" /> : null}
                 {index  === 1 ? <img src={mapIcon} alt="Logo" /> : null}
-                {index  === 2 ? <img src={pluginIcon} alt="Logo" /> : null}
+                {index  === 3 ? <img src={pluginIcon} alt="Logo" /> : null}
               </ListItemIcon>
               <ListItemText primary={text} />
               
             </ListItem>
-            {index === 1 ?
-                (
-                    
-                            <MenuList
-                              autoFocusItem={open}
-                              id="composition-menu"
-                              aria-labelledby="composition-button"
-                              //onKeyDown={handleListKeyDown}
-                              
-                            >
-                              <MenuItem sx={{marginLeft:'55px'}}>New Product</MenuItem>
-
-                            </MenuList>
-                          
-                ):null}
+            
                 </>
           ))}
         </List>
@@ -211,7 +198,8 @@ export default function Dashboard() {
         
       {showCompo === 0 ? null : null}  
       {showCompo === 1 ? <ProductsList /> : null}
-      {showCompo === 2 ? <Orders /> : null}
+      {showCompo === 2 ? <NewProduct /> : null}
+      {showCompo === 3 ? <Orders /> : null}
           
       </Main>
     </Box>
