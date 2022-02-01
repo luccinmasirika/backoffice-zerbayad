@@ -16,14 +16,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Stack } from '@mui/material';
 
 import ProductsList from '../productsList'
 import ProductTable from '../productsList/ProductTable';
-//import Map from '../map/'
-//import Home from './Home'
+import Orders from '../orders'
+
 
 import { LogoIcon } from '../../components';
 
@@ -31,12 +29,10 @@ import mapIcon from '../../assets/images/Icon feather-map.png'
 import homeIcon from '../../assets/images/Icon feather-home.png'
 import pluginIcon from '../../assets/images/Icon material-extension.png'
 
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
+
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
+
 
 const drawerWidth = 240;
 
@@ -179,7 +175,7 @@ export default function Dashboard() {
         <List sx={{
           color:'white'
         }}>
-          {['Home', 'Products', 'Users'].map((text, index) => (
+          {['Home', 'Products', 'Orders'].map((text, index) => (
               <>
             <ListItem button key={text} onClick={()=>setShowCompo(index)}>
               <ListItemIcon>
@@ -211,12 +207,12 @@ export default function Dashboard() {
       </Drawer>
       <Main open={open}>
       <DrawerHeader />
-      <ProductsList />  
-        {/*}
-      {showCompo === 0 ? <Home /> : null}  
-      {showCompo === 2 ? <MediaList /> : null}
-      {showCompo === 1 ? <Map /> : null}
-          {*/}
+
+        
+      {showCompo === 0 ? null : null}  
+      {showCompo === 1 ? <ProductsList /> : null}
+      {showCompo === 2 ? <Orders /> : null}
+          
       </Main>
     </Box>
   );
