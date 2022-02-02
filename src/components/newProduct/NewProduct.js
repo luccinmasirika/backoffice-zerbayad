@@ -70,8 +70,8 @@ const NewProduct = () => {
     formData.set('priceSizes', [priceS, priceM, priceL]);
     setProduct({ ...product, loading: true });
     try {
-      const res = axios.post(`${URL}/products/add/azgarden`, formData);
-      if (res.data) {
+      const res = await axios.post(`${URL}/products/add/azgarden`, formData);
+      if (res.data?.success) {
         setProduct({ ...product, loading: false });
         console.log(res.data);
         alert('Success');
