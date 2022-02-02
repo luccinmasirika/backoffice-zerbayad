@@ -20,7 +20,7 @@ import {
   RadioGroup,
   FormControl,
   FormControlLabel,
-} from '@material-ui/core';
+} from '@mui/material';
 import Alert from '@mui/material/Alert';
 
 import {listOrders} from '../../redux/actions/orderActions'
@@ -33,14 +33,14 @@ function Orders() {
     const orders = useSelector(state=>state?.orders?.orders)
     console.log('orders',orders)
     useEffect(() => {
-    dispatch(listOrders())  
+    dispatch(listOrders())
     }, []);
-    
+
   return <div>
 
 <Typography component="h2" variant="h2" align='center'>
         Orders
-</Typography> 
+</Typography>
 
 <Grid container spacing={1}>
       <Grid item md={9} xs={12}>
@@ -67,9 +67,9 @@ function Orders() {
 
                           <TableCell>
                             <a href={`/productPage/${item._id}`} >
-                              
+
                                 <Typography>{item.client_name}</Typography>
-                              
+
                             </a>
                           </TableCell>
                           <TableCell align="right">

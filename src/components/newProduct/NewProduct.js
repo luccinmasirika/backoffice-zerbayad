@@ -1,4 +1,5 @@
 import SaveIcon from '@mui/icons-material/Save';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
@@ -10,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import { Layout } from 'components';
+import { URL } from 'config/url';
 import React from 'react';
 
 const NewProduct = () => {
@@ -17,15 +19,16 @@ const NewProduct = () => {
     name: '',
     category: '',
     price: 0,
-    percentage: 0,
     priceS: null,
     priceM: null,
     priceL: null,
-    priceXL: null,
+    procentege: 0,
+    priceSizes: [],
     description: '',
     story: '',
-    image: null,
-    productSlider: [],
+    sell: false,
+    image1: null,
+    image2: null,
     formData: new FormData(),
     loading: false,
   });
@@ -38,13 +41,13 @@ const NewProduct = () => {
     name,
     category,
     price,
-    percentage,
+    procentege,
     priceS,
     priceM,
     priceL,
-    priceXL,
     description,
     story,
+    sell,
     formData,
     loading,
   } = product;
@@ -52,8 +55,10 @@ const NewProduct = () => {
   const handleChange = (props, event) => {
     const value =
       event.target.type !== 'file'
-        ? event.target.value
-        : props === 'image'
+        ? event.target.type === 'checkbox'
+          ? event.target.checked
+          : event.target.value
+        : props === 'image1'
         ? event.target.files[0]
         : event.target.files;
     setProduct({ ...product, [props]: value });
@@ -61,17 +66,20 @@ const NewProduct = () => {
   };
 
   const onSubmit = async () => {
+    formData.set('priceSizes', [priceS, priceM, priceL]);
     setProduct({ ...product, loading: true });
     try {
-      const res = await axios.post('/url', formData);
+      const res = await axios.post(`${URL}/products/add/azgarden`, formData);
+      setProduct({ ...product, loading: false });
       console.log(res.data);
+      alert('Success');
     } catch (e) {
       setProduct({ ...product, loading: false });
     }
   };
 
   return (
-    <div>
+    <Layout>
       <Typography
         textAlign='center'
         fontWeight={700}
@@ -121,9 +129,9 @@ const NewProduct = () => {
             fullWidth
             label='Percentage'
             variant='outlined'
-            onChange={(e) => handleChange('percentage', e)}
+            onChange={(e) => handleChange('procentege', e)}
             type='number'
-            value={percentage}
+            value={procentege}
             sx={{ flex: 1 }}
           />
         </Stack>
@@ -152,14 +160,6 @@ const NewProduct = () => {
             type='number'
             value={priceL}
           />
-          <TextField
-            fullWidth
-            label='Product Price - XL'
-            variant='outlined'
-            onChange={(e) => handleChange('priceXL', e)}
-            type='number'
-            value={priceXL}
-          />
         </Stack>
         <TextField
           fullWidth
@@ -179,11 +179,21 @@ const NewProduct = () => {
           value={story}
           rows={6}
         />
-        <input type='file' onChange={(e) => handleChange('image', e)} />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={sell}
+              onChange={(e) => handleChange('sell', e)}
+              name='gilad'
+            />
+          }
+          label='Sell'
+        />
+        <input type='file' onChange={(e) => handleChange('image1', e)} />
         <input
           type='file'
           multiple
-          onChange={(e) => handleChange('productSlider', e)}
+          onChange={(e) => handleChange('image2', e)}
         />
         <Box>
           <Button
@@ -196,7 +206,7 @@ const NewProduct = () => {
           </Button>
         </Box>
       </Stack>
-    </div>
+    </Layout>
   );
 };
 
