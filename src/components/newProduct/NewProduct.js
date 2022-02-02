@@ -58,8 +58,6 @@ const NewProduct = () => {
         ? event.target.type === 'checkbox'
           ? event.target.checked
           : event.target.value
-        : props === 'image1'
-        ? event.target.files[0]
         : event.target.files;
     setProduct({ ...product, [props]: value });
     formData.set(props, value);
@@ -189,11 +187,10 @@ const NewProduct = () => {
           }
           label='Sell'
         />
-        <input type='file' onChange={(e) => handleChange('image1', e)} />
         <input
           type='file'
           multiple
-          onChange={(e) => handleChange('image2', e)}
+          onChange={(e) => handleChange('image1', e)}
         />
         <Box>
           <Button
