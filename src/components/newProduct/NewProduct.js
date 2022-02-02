@@ -27,8 +27,7 @@ const NewProduct = () => {
     description: '',
     story: '',
     sell: false,
-    image1: null,
-    image2: null,
+    images: null,
     formData: new FormData(),
     loading: false,
   });
@@ -190,7 +189,7 @@ const NewProduct = () => {
         <input
           type='file'
           multiple
-          onChange={(e) => handleChange('image1', e)}
+          onChange={(e) => handleChange('images', e)}
         />
         <Box>
           <Button
