@@ -20,10 +20,10 @@ import {
   RadioGroup,
   FormControl,
   FormControlLabel,
-} from '@material-ui/core';
-import Alert from '@mui/material/Alert';
+  } from '@material-ui/core';
+  import Stack from "@mui/material/Stack";
 
-import Pagination from "react-js-pagination";
+
 
 
 import {listOrders} from '../../redux/actions/orderActions'
@@ -34,20 +34,18 @@ function Orders(props) {
     const dispatch = useDispatch();
 
     const orders = useSelector(state=>state?.orders?.orders)
-    const [activePage,setActivePage] = useState(1);
+    const ordersCount = useSelector((store) => store?.orders?.orders?.count);
 
-   const  handlePageChange = (pageNumber) =>{
-      console.log(`active page is ${pageNumber}`);
-      setActivePage(pageNumber)
-    }
+    const [indexPage,setIndexPage] = useState(0)
+    const limit = 10;
 
     useEffect(() => {
         setTimeout(() => {
-        dispatch(listOrders())      
+        dispatch(listOrders(indexPage,limit))      
         }, 4000);
     
-    }, []);
-    
+    }, [indexPage]);
+  if(!orders) return <><h1>Loading...</h1><CircularProgress /></>  
   return <div>
 
 <Typography component="h2" variant="h2" align='center'>
@@ -96,15 +94,6 @@ function Orders(props) {
               </ListItem>
 
               <ListItem>
-              <Pagination
-              activePage={activePage}
-              itemsCountPerPage={10}
-              totalItemsCount={450}
-              pageRangeDisplayed={5}
-              onChange={handlePageChange}
-              itemClass="page-item"
-              linkClass="page-link"
-            />
               </ListItem>
 
             </List>

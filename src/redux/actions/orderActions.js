@@ -3,8 +3,8 @@ import { LIST_ORDERS ,LIST_ORDER } from "../types/ordersType";
 import axios from 'axios'
 
 
-export const listOrders = () => async (dispatch) => {
-const orders = await axios.get(`${URL}/orders/azgarden`);
+export const listOrders = (index,limit) => async (dispatch) => {
+const orders = await axios.get(`${URL}/orders/getorders/azgarden/${index}/${limit}`);
 dispatch({ type: LIST_ORDERS, payload: orders.data });
 //console.log("userInfo.data",userInfo.data);
 //localStorage.removeItem('userInfo');
@@ -14,9 +14,7 @@ return orders.data
 
 
 export const getOrder = (id) => async (dispatch) => {
-    console.log('entred list order333')
-    const order = await axios.get(`${URL}/orders/azgarden/${id}`);
-    console.log('ORd33',order)
+    const order = await axios.get(`${URL}/orders/getorder/azgarden/${id}`);
     dispatch({ type: LIST_ORDER, payload: order.data });
     //console.log("userInfo.data",userInfo.data);
     //localStorage.removeItem('userInfo');

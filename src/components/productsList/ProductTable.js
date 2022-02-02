@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 //import { useQuery } from "react-query";
 //import getPosts from "api/getPosts";
 import { grey, red } from "@mui/material/colors";
-import { LinearProgress } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 import {
@@ -27,7 +27,7 @@ import Pagination from '@mui/material/Pagination';
 
 
 //import deletePost from "api/deletePost";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 
 const theme = createTheme();
 
@@ -75,14 +75,13 @@ const CustomIconButton = styled(IconButton)(({ theme }) => ({
 
 const ProductTable =   () => {
   const products = useSelector((store) => store?.products?.products?.data);
+  const productsCount = useSelector((store) => store?.products?.products?.count);
+
+  const [indexPage,setIndexPage] = useState(0)
+  const limit = 10;
   //const isLoading = useSelector((state) => state.media.isLoading);
   const dispatch = useDispatch();
 
- 
-
-
-   
-  console.log('data',products)
 
   const clickEdit = (post) => {
   //  dispatch(toggleEditDialog());
@@ -99,14 +98,14 @@ const ProductTable =   () => {
 
   
   useEffect(() => {
-    dispatch(getProducts())
-  }, [])
+    dispatch(getProducts(indexPage,limit))
+  }, [indexPage])
 
   const posts = [{_id:'1',title:'test',description:'desc'}]
   
 
 
-  
+  if(!products) return <><h1>Loading...</h1><CircularProgress /></>
   return (
     <ThemeProvider theme={theme}>
     <TableContainer component={CustomTable}>
@@ -157,8 +156,9 @@ const ProductTable =   () => {
         </CustomTableBody>
       </Table>
     </TableContainer>
-    <Stack spacing={2}>
-      <Pagination count={10} showFirstButton showLastButton onChange={(e,page)=>alert(page)}/>
+    <Stack spacing={2} sx={{marginLeft:'32%'}}>
+      {productsCount && <Pagination count={Math.round(productsCount/10)} showFirstButton showLastButton 
+                        onChange={(e,page)=>setIndexPage((page*10)-10)}/>}
     </Stack>
     </ThemeProvider>
   );
