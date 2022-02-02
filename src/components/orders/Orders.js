@@ -25,7 +25,7 @@ import Alert from '@mui/material/Alert';
 
 import {listOrders} from '../../redux/actions/orderActions'
 
-function Orders() {
+function Orders(props) {
 
     const ordersItem = []
     const dispatch = useDispatch();
@@ -33,7 +33,10 @@ function Orders() {
     const orders = useSelector(state=>state?.orders?.orders)
     console.log('orders',orders)
     useEffect(() => {
-    dispatch(listOrders())  
+        setTimeout(() => {
+        dispatch(listOrders())      
+        }, 4000);
+    
     }, []);
     
   return <div>
@@ -60,17 +63,15 @@ function Orders() {
                       {orders && orders.data.map((item) => (
                         <TableRow key={item._id}>
                           <TableCell>
-                            <a href={`/product/${item._id}`} >
-                            <Typography>{item._id}</Typography>
-                            </a>
+                            <button onClick={()=>{props.setProductSelected(item._id);props.setShowCompo(4)}}>
+                            <Typography >{item._id}</Typography>
+                            </button>
                           </TableCell>
 
                           <TableCell>
-                            <a href={`/productPage/${item._id}`} >
+                            
                               
                                 <Typography>{item.client_name}</Typography>
-                              
-                            </a>
                           </TableCell>
                           <TableCell align="right">
                             <Typography>{item.name}</Typography>
