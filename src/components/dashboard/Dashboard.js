@@ -1,38 +1,35 @@
 
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Stack } from '@mui/material';
+import MuiAppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Stack } from '@mui/material';
-
-import ProductsList from '../productsList'
-import ProductTable from '../productsList/ProductTable';
-import Orders from '../orders'
-import NewProduct from '../newProduct'
-
-
+import { styled, useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import homeIcon from '../../assets/images/Icon feather-home.png';
+import mapIcon from '../../assets/images/Icon feather-map.png';
+import pluginIcon from '../../assets/images/Icon material-extension.png';
 import { LogoIcon } from '../../components';
+import NewProduct from '../newProduct';
+import Orders from '../orders';
+import ProductsList from '../productsList';
 
-import mapIcon from '../../assets/images/Icon feather-map.png'
-import homeIcon from '../../assets/images/Icon feather-home.png'
-import pluginIcon from '../../assets/images/Icon material-extension.png'
 
 
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
+
+
+
 
 
 const drawerWidth = 240;
@@ -97,7 +94,7 @@ export default function Dashboard() {
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [showCompo, setShowCompo] = React.useState(0);
+  const [showCompo, setShowCompo] = React.useState(2);
 
 
   const handleDrawerOpen = () => {
@@ -132,7 +129,7 @@ export default function Dashboard() {
       </AppBar>
       <Drawer
         sx={{
-          
+
           width: drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
@@ -145,7 +142,7 @@ export default function Dashboard() {
         anchor="left"
         open={open}
       >
-        
+
         <DrawerHeader >
 
         <LogoIconContainer sx={{
@@ -165,7 +162,7 @@ export default function Dashboard() {
           <path id="Path_8" data-name="Path 8" d="M155.357,416.187,154.2,418.5a4.1,4.1,0,0,0-3-.93A3.827,3.827,0,0,0,148,419.217a6.676,6.676,0,0,0-1.25,4.168,6.289,6.289,0,0,0,1.154,3.991,3.764,3.764,0,0,0,3.11,1.475,4.247,4.247,0,0,0,3.479-1.571l1.3,2.26a6.56,6.56,0,0,1-5,1.8,6.32,6.32,0,0,1-5.114-2.164,8.864,8.864,0,0,1-1.827-5.9,8.643,8.643,0,0,1,2.02-5.835,6.554,6.554,0,0,1,5.178-2.34A7.386,7.386,0,0,1,155.357,416.187Zm2.324-.593a1.5,1.5,0,0,0-.449,1.106,1.564,1.564,0,0,0,.449,1.106,1.559,1.559,0,1,0,1.106-2.661A1.418,1.418,0,0,0,157.682,415.594Zm2.421,15.469V419.57h-2.757v2.2h.032v9.281H160.1Zm3.687-3.527a3.777,3.777,0,0,0,.93,2.757,3.533,3.533,0,0,0,2.645.978,8.857,8.857,0,0,0,2.677-.321v-2.469a3.482,3.482,0,0,1-1.811.513,1.631,1.631,0,0,1-1.363-.513,2.96,2.96,0,0,1-.385-1.747V421.7h3.158v-2.148h-3.158v-3.318l-2.693-.048v3.366h-2.356V421.7h2.356Zm18.482-7.967h-2.789l-2.837,7.951L173.5,419.57h-2.789l3.607,8.929a9.474,9.474,0,0,1,.866,3.158c0,1.042-1.042,1.555-3.11,1.555v2.356a7.017,7.017,0,0,0,3.3-.753,3.706,3.706,0,0,0,1.843-1.908ZM98.9,433.307l4.472,4.3a9.441,9.441,0,0,1,.769.85v-4.889H105.2v7.326l-4.552-4.376a5.141,5.141,0,0,1-.673-.785v4.889H98.916v-7.31Zm10,7.31h3.927v-1.026h-2.789v-2.276h2.789V436.3h-2.789v-1.763h2.789v-.978H108.9Zm10.692-6.059h1.859v-.978h-4.873v.978h1.875v6.059h1.138Zm5.242-.978,2.725,7.31,1.571-3.991a9.318,9.318,0,0,0,.337-1.01,10.168,10.168,0,0,0,.337.978l1.6,4.007,2.725-7.31H133l-1.314,3.575a10.574,10.574,0,0,0-.353,1.09,11.545,11.545,0,0,0-.369-1.122l-1.491-3.831-1.427,3.767c-.032.112-.176.5-.385,1.186-.112-.369-.24-.737-.369-1.106l-1.33-3.559h-1.122ZM143.7,437.09a3.6,3.6,0,0,0-1.106-2.613,3.833,3.833,0,0,0-5.322,0,3.677,3.677,0,0,0,0,5.226,3.745,3.745,0,0,0,2.661,1.074A3.814,3.814,0,0,0,142.6,439.7,3.548,3.548,0,0,0,143.7,437.09Zm-1.186,0a2.659,2.659,0,0,1-.753,1.859,2.524,2.524,0,0,1-1.811.769,2.56,2.56,0,0,1-1.827-.769,2.591,2.591,0,0,1-.753-1.859,2.656,2.656,0,0,1,.753-1.876,2.56,2.56,0,0,1,1.827-.769,2.524,2.524,0,0,1,1.811.769A2.726,2.726,0,0,1,142.517,437.09Zm5.562.369h.128l2.34,3.158h1.282l-2.421-3.206a1.7,1.7,0,0,0,1.619-1.908,1.91,1.91,0,0,0-.673-1.539,2.73,2.73,0,0,0-1.747-.4h-1.6V440.6h1.074Zm.064-.882v-2.02h.208c1.026,0,1.507.192,1.507,1.058,0,.85-.5.962-1.507.962Zm7.326,4.04h1.138v-3.591l2.789,3.591h1.475l-3.126-3.911,2.789-3.126H159.14l-2.533,2.917V433.58h-1.138Zm8.32-1.427a2.059,2.059,0,0,0,2.228,1.6,2.1,2.1,0,0,0,2.324-2.18c0-1.01-.577-1.523-1.827-2.084-.785-.369-1.347-.577-1.347-1.25a.889.889,0,0,1,1.01-.882,1.167,1.167,0,0,1,1.042.641l.9-.465a1.952,1.952,0,0,0-2.036-1.154,1.925,1.925,0,0,0-2.116,1.924c0,1.058.689,1.539,1.94,2.148.721.353,1.25.529,1.25,1.218a1,1,0,0,1-1.106,1.042,1.277,1.277,0,0,1-1.363-.962Z" transform="translate(-66.924 -281.889)" fill="none" stroke="#fff" stroke-width="0.04"/>
         </g>
       </svg>
-      
+
       </LogoIconContainer>
 
           <IconButton onClick={handleDrawerClose} sx={{color:'white'   }} >
@@ -185,9 +182,9 @@ export default function Dashboard() {
                 {index  === 3 ? <img src={pluginIcon} alt="Logo" /> : null}
               </ListItemIcon>
               <ListItemText primary={text} />
-              
+
             </ListItem>
-            
+
                 </>
           ))}
         </List>
@@ -195,12 +192,12 @@ export default function Dashboard() {
       <Main open={open}>
       <DrawerHeader />
 
-        
-      {showCompo === 0 ? null : null}  
+
+      {showCompo === 0 ? null : null}
       {showCompo === 1 ? <ProductsList /> : null}
       {showCompo === 2 ? <NewProduct /> : null}
       {showCompo === 3 ? <Orders /> : null}
-          
+
       </Main>
     </Box>
   );

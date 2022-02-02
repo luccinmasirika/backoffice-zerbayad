@@ -53,23 +53,29 @@ const NewProduct = () => {
 
   const handleChange = (props, event) => {
     const value =
-      event.target.type !== 'file'
-        ? event.target.type === 'checkbox'
-          ? event.target.checked
-          : event.target.value
-        : event.target.files;
+      event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value;
     setProduct({ ...product, [props]: value });
-    formData.set(props, value);
+    if (event.target.type === 'file') {
+      Object.values(event.target.files).forEach((el) => {
+        formData.append('images', el);
+      });
+    } else {
+      formData.set(props, value);
+    }
   };
 
   const onSubmit = async () => {
     formData.set('priceSizes', [priceS, priceM, priceL]);
     setProduct({ ...product, loading: true });
     try {
-      const res = await axios.post(`${URL}/products/add/azgarden`, formData);
-      setProduct({ ...product, loading: false });
-      console.log(res.data);
-      alert('Success');
+      const res = axios.post(`${URL}/products/add/azgarden`, formData);
+      if (res.data) {
+        setProduct({ ...product, loading: false });
+        console.log(res.data);
+        alert('Success');
+      }
     } catch (e) {
       setProduct({ ...product, loading: false });
     }
