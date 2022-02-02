@@ -7,7 +7,7 @@ import {LIST_PRODUCTS} from '../types/productsType'
 export const getProducts = () => async (dispatch) => {
     // console.log(userEmail,userPassword)
     console.log('entred in getPRoducets')
-    const products = await axios.get(`${URL}/products/azgarden`);
+    const products = await axios.get(`${URL}/products/azgarden/`);
     dispatch({ type: LIST_PRODUCTS, payload: products.data });
     //console.log("userInfo.data",userInfo.data);
     //localStorage.removeItem('userInfo');

@@ -23,6 +23,9 @@ import {
 
 } from "../../redux/actions/productActions";
 
+import Pagination from '@mui/material/Pagination';
+
+
 //import deletePost from "api/deletePost";
 import { useEffect } from "react";
 
@@ -110,7 +113,7 @@ const ProductTable =   () => {
       <Table aria-label="media" size="small">
         <CustomTableHead>
           <TableRow>
-            <TableCell>Prouct Name</TableCell>
+            <TableCell>Product Name</TableCell>
             <TableCell>Description</TableCell>
             <TableCell align="center">Actions</TableCell>
           </TableRow>
@@ -154,6 +157,9 @@ const ProductTable =   () => {
         </CustomTableBody>
       </Table>
     </TableContainer>
+    <Stack spacing={2}>
+      <Pagination count={10} showFirstButton showLastButton onChange={(e,page)=>alert(page)}/>
+    </Stack>
     </ThemeProvider>
   );
 };

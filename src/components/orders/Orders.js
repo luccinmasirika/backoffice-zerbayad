@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import {
@@ -23,6 +23,9 @@ import {
 } from '@material-ui/core';
 import Alert from '@mui/material/Alert';
 
+import Pagination from "react-js-pagination";
+
+
 import {listOrders} from '../../redux/actions/orderActions'
 
 function Orders(props) {
@@ -31,7 +34,13 @@ function Orders(props) {
     const dispatch = useDispatch();
 
     const orders = useSelector(state=>state?.orders?.orders)
-    console.log('orders',orders)
+    const [activePage,setActivePage] = useState(1);
+
+   const  handlePageChange = (pageNumber) =>{
+      console.log(`active page is ${pageNumber}`);
+      setActivePage(pageNumber)
+    }
+
     useEffect(() => {
         setTimeout(() => {
         dispatch(listOrders())      
@@ -85,6 +94,19 @@ function Orders(props) {
                   </Table>
                 </TableContainer>
               </ListItem>
+
+              <ListItem>
+              <Pagination
+              activePage={activePage}
+              itemsCountPerPage={10}
+              totalItemsCount={450}
+              pageRangeDisplayed={5}
+              onChange={handlePageChange}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
+              </ListItem>
+
             </List>
           </Grid>
           </Grid>
