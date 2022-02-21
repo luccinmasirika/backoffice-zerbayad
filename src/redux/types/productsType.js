@@ -1,1 +1,2 @@
 export const LIST_PRODUCTS = 'LIST_PRODUCTS';
+export const GET_PRODUCT = 'GET_PRODUCT'

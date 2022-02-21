@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import {
@@ -20,22 +20,29 @@ import {
   RadioGroup,
   FormControl,
   FormControlLabel,
-} from '@mui/material';
-import Alert from '@mui/material/Alert';
+  Stack
+  } from '@mui/material';
 
 import {listOrders} from '../../redux/actions/orderActions'
 
-function Orders() {
+function Orders(props) {
 
     const ordersItem = []
     const dispatch = useDispatch();
 
     const orders = useSelector(state=>state?.orders?.orders)
-    console.log('orders',orders)
-    useEffect(() => {
-    dispatch(listOrders())
-    }, []);
+    const ordersCount = useSelector((store) => store?.orders?.orders?.count);
 
+    const [indexPage,setIndexPage] = useState(0)
+    const limit = 10;
+
+    useEffect(() => {
+        setTimeout(() => {
+        dispatch(listOrders(indexPage,limit))      
+        }, 4000);
+    
+    }, [indexPage]);
+  if(!orders) return <><h1>Loading...</h1><CircularProgress /></>  
   return <div>
 
 <Typography component="h2" variant="h2" align='center'>
@@ -60,17 +67,15 @@ function Orders() {
                       {orders && orders.data.map((item) => (
                         <TableRow key={item._id}>
                           <TableCell>
-                            <a href={`/product/${item._id}`} >
-                            <Typography>{item._id}</Typography>
-                            </a>
+                            <button onClick={()=>{props.setProductSelected(item._id);props.setShowCompo(4)}}>
+                            <Typography >{item._id}</Typography>
+                            </button>
                           </TableCell>
 
                           <TableCell>
-                            <a href={`/productPage/${item._id}`} >
-
+                            
+                              
                                 <Typography>{item.client_name}</Typography>
-
-                            </a>
                           </TableCell>
                           <TableCell align="right">
                             <Typography>{item.name}</Typography>
@@ -84,6 +89,10 @@ function Orders() {
                   </Table>
                 </TableContainer>
               </ListItem>
+
+              <ListItem>
+              </ListItem>
+
             </List>
           </Grid>
           </Grid>

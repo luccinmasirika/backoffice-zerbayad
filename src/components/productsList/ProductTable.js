@@ -15,16 +15,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 //import { useQuery } from "react-query";
 //import getPosts from "api/getPosts";
 import { grey, red } from "@mui/material/colors";
-import { LinearProgress } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 import {
   getProducts,
-
+  getProduct
 } from "../../redux/actions/productActions";
 
+import Pagination from '@mui/material/Pagination';
+
+
 //import deletePost from "api/deletePost";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const theme = createTheme();
 
@@ -70,90 +73,100 @@ const CustomIconButton = styled(IconButton)(({ theme }) => ({
   borderRadius: theme.spacing(2),
 }));
 
-const ProductTable =   () => {
+const ProductTable = () => {
   const products = useSelector((store) => store?.products?.products?.data);
+  const productsCount = useSelector((store) => store?.products?.products?.count);
+
+  const [indexPage, setIndexPage] = useState(0)
+  const limit = 10;
   //const isLoading = useSelector((state) => state.media.isLoading);
   const dispatch = useDispatch();
 
- 
 
-
-   
-  console.log('data',products)
+  console.log('products', products)
 
   const clickEdit = (post) => {
-  //  dispatch(toggleEditDialog());
-  //  dispatch(setSelectedPost(post));
+    //  dispatch(toggleEditDialog());
+    //  dispatch(setSelectedPost(post));
   };
 
   const clickDelete = async (post) => {
-  //  dispatch(toggleDeleteDialog());
-  //  dispatch(setSelectedPost(post));
+    //  dispatch(toggleDeleteDialog());
+    //  dispatch(setSelectedPost(post));
     // await deletePost(id);
     // dispatch(fetchPosts());
 
   };
 
-  
+
   useEffect(() => {
-    dispatch(getProducts())
-  }, [])
-
-  const posts = [{_id:'1',title:'test',description:'desc'}]
-  
-
+    dispatch(getProducts(indexPage, limit))
+  }, [indexPage])
 
   
+  // useEffect(() => {
+  //   dispatch(getProduct('620b3c2f9cf20891c8b4230b'))
+  // }, [])
+
+  const posts = [{ _id: '1', title: 'test', description: 'desc' }]
+
+
+
+  if (!products) return <><h1>Loading...</h1><CircularProgress /></>
   return (
     <ThemeProvider theme={theme}>
-    <TableContainer component={CustomTable}>
-      <Table aria-label="media" size="small">
-        <CustomTableHead>
-          <TableRow>
-            <TableCell>Prouct Name</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell align="center">Actions</TableCell>
-          </TableRow>
-        </CustomTableHead>
-        <CustomTableBody>
-          { products && products.map((post) => {
-            const { name, _id, description } = post;
-            
-            return (
-              <StyledTableRow key={_id}>
-                <TableCell>{name}</TableCell>
-                <TableCell>{description}</TableCell>
-                <TableCell>
-                  <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={2}
-                  >
-                    <CustomIconButton
-                      aria-label="Edit"
-                      onClick={() => clickEdit(post)}
-                      color="inherit"
+      <TableContainer component={CustomTable}>
+        <Table aria-label="media" size="small">
+          <CustomTableHead>
+            <TableRow>
+              <TableCell>Product Name</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell align="center">Actions</TableCell>
+            </TableRow>
+          </CustomTableHead>
+          <CustomTableBody>
+            {products && products.map((post) => {
+              const { name, _id, description } = post;
+
+              return (
+                <StyledTableRow key={_id}>
+                  <TableCell>{name}</TableCell>
+                  <TableCell>{description}</TableCell>
+                  <TableCell>
+                    <Stack
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      spacing={2}
                     >
-                      <CustomEditIcon fontSize="small" />
-                    </CustomIconButton>
-                    <CustomIconButton
-                      aria-label="Delete url"
-                      onClick={() => clickDelete(post)}
-                    >
-                      <DeleteOutlineIcon
-                        sx={{ color: red[300] }}
-                        fontSize="small"
-                      />
-                    </CustomIconButton>
-                  </Stack>
-                </TableCell>
-              </StyledTableRow>
-            );
-          })}
-        </CustomTableBody>
-      </Table>
-    </TableContainer>
+                      <CustomIconButton
+                        aria-label="Edit"
+                        onClick={() => clickEdit(post)}
+                        color="inherit"
+                      >
+                        <CustomEditIcon fontSize="small" />
+                      </CustomIconButton>
+                      <CustomIconButton
+                        aria-label="Delete url"
+                        onClick={() => clickDelete(post)}
+                      >
+                        <DeleteOutlineIcon
+                          sx={{ color: red[300] }}
+                          fontSize="small"
+                        />
+                      </CustomIconButton>
+                    </Stack>
+                  </TableCell>
+                </StyledTableRow>
+              );
+            })}
+          </CustomTableBody>
+        </Table>
+      </TableContainer>
+      <Stack spacing={2} sx={{ marginLeft: '32%' }}>
+        {productsCount && <Pagination count={Math.round(productsCount / 10)} showFirstButton showLastButton
+          onChange={(e, page) => setIndexPage((page * 10) - 10)} />}
+      </Stack>
     </ThemeProvider>
   );
 };

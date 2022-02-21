@@ -16,6 +16,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Order from 'components/order';
 import * as React from 'react';
 import homeIcon from '../../assets/images/Icon feather-home.png';
 import mapIcon from '../../assets/images/Icon feather-map.png';
@@ -25,6 +26,7 @@ import NewProduct from '../newProduct';
 import Orders from '../orders';
 import ProductsList from '../productsList';
 
+import ProductTable from '../productsList/ProductTable';
 
 
 
@@ -94,7 +96,8 @@ export default function Dashboard() {
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [showCompo, setShowCompo] = React.useState(2);
+  const [showCompo, setShowCompo] = React.useState(0);
+  const [productSelected, setProductSelected] = React.useState();
 
 
   const handleDrawerOpen = () => {
@@ -194,10 +197,11 @@ export default function Dashboard() {
 
 
       {showCompo === 0 ? null : null}
-      {showCompo === 1 ? <ProductsList /> : null}
+      {showCompo === 1 ? <ProductTable /> : null}
       {showCompo === 2 ? <NewProduct /> : null}
-      {showCompo === 3 ? <Orders /> : null}
-
+      {showCompo === 3 ? <Orders setProductSelected={setProductSelected} setShowCompo={setShowCompo} /> : null}
+      {showCompo === 4 ? <Order id={productSelected} setShowCompo={setShowCompo}/> : null}
+          
       </Main>
     </Box>
   );
