@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 //import { cartReducer } from './reducers/cartReducer';
 import { productsReducer } from './reducers/productReducer';
 import { ordersReducer } from './reducers/orderReducer';
+import { darkModeReducer } from './reducers/darkModeReducer';
 
 const initialState = {
     products: {
@@ -11,11 +12,15 @@ const initialState = {
     orders: {
         order: {}
     },
+    themeMode: { 
+        mode: "dark"
+    }
 }
 
 const reducers = combineReducers({
     products: productsReducer,
     orders: ordersReducer,
+    themeMode: darkModeReducer,
 
 })
 

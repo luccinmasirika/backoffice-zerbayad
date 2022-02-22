@@ -9,10 +9,23 @@ import Cookies from "js-cookie";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { drawerWidth } from "../../utils";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useDispatch, useSelector } from "react-redux";
+import { handledarkMode } from "redux/actions/darkModeAction";
 
 const Header = ({ onToggle, isOpen }) => {
   const navigate = useNavigate();
   const [user, setUser] = React.useState(null);
+  const dispatch = useDispatch();
+  const {mode} = useSelector((state) => state.themeMode);
+
+  const switchDarkMode = () => {
+    mode === "dark"
+      ? dispatch(handledarkMode("light"))
+      : dispatch(handledarkMode("dark"));
+  };
+
   const onLogout = () => {
     Cookies.remove("jwt");
     Cookies.remove("user");
@@ -52,7 +65,7 @@ const Header = ({ onToggle, isOpen }) => {
           aria-label="open drawer"
           edge="start"
           onClick={onToggle}
-          sx={{ mr: 2, ...(!isOpen && { display: {sm: "none"} }) }}
+          sx={{ mr: 2, ...(!isOpen && { display: { sm: "none" } }) }}
         >
           <MenuIcon />
         </IconButton>
@@ -66,6 +79,9 @@ const Header = ({ onToggle, isOpen }) => {
             Flower
           </Typography>
           <Stack direction="row" alignItems="center" spacing={1}>
+            <IconButton onClick={switchDarkMode} sx={{color: 'white'}}>
+              {mode === 'dark' ? <DarkModeIcon/> : <LightModeIcon /> }
+            </IconButton>
             <Typography variant="h6" noWrap component="div">
               {user?.firstName} {user?.lastName}
             </Typography>
