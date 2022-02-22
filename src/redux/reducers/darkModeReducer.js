@@ -1,12 +1,17 @@
 import { DARK_MODE } from "../types/darkModeType";
 
+const getInitialStateMode = () => {
+  const serialisedState = localStorage.getItem("themeMode");
+  if (serialisedState === null) return undefined;
+  return serialisedState
+};
+
 const initialState = {
-  mode: "dark",
-  // mode: JSON.parse(localStorage.getItem("themeMode")),
+  mode: getInitialStateMode()
 };
 
 export const darkModeReducer = (state = initialState, action) => {
-  console.log(action.payload)
+  console.log(action.payload);
   switch (action.type) {
     case DARK_MODE:
       return {

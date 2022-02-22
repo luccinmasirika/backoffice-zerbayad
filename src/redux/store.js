@@ -12,9 +12,6 @@ const initialState = {
     orders: {
         order: {}
     },
-    themeMode: { 
-        mode: "dark"
-    }
 }
 
 const reducers = combineReducers({
