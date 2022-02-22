@@ -1,40 +1,47 @@
 import React from "react";
-import { styled } from "@mui/system";
-import { Button, Typography } from "@mui/material";
-import ProductTable from "./ProductTable";
-//import { useNavigate } from "react-router";
-//import ProductTable from "./ProductTable";
-//import EditDialog from "./EditDialog";
-//import DeleteDialog from "./DeleteDialog";
+import {
+  TableContainer,
+  Table,
+  Typography,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@mui/material";
 
-const Header = styled("div")(({ theme }) => ({
-  margin: `${theme.spacing(6)} 0`,
-  display: "flex",
-  justifyContent: "space-between",
-}));
+import { Link } from "react-router-dom";
 
-const Title = styled(Typography)(() => ({
-  color: "white",
-  textAlign: "center",
-}));
-
-const ProductsList = () => {
-  
-  // const history = useNavigate();
-
+function ProductsList(props) {
   return (
-    <>
-    {/*}
-    <EditDialog/>
-    <DeleteDialog/>
-    {*/}
-      <Title as="h1">Products</Title>
-      <Header>
-
-      </Header>
-      <ProductTable />
-    </>
+    <TableContainer>
+      <Table sx={{ width: 1 }}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Action</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Category</TableCell>
+            <TableCell align="right">Price</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>
+              <Link to={`/products/${'fakeid'}`}>Edit</Link>
+            </TableCell>
+            <TableCell>
+              <Typography>Fake Product</Typography>
+            </TableCell>
+            <TableCell align="right">
+              <Typography>Fake Category</Typography>
+            </TableCell>
+            <TableCell align="right">
+              <Typography>Fake Price</Typography>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
-};
+}
 
 export default ProductsList;

@@ -15,42 +15,48 @@ import Logo from "assets/images/logo.png";
 import CategoryIcon from "@mui/icons-material/Category";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import IconButton from '@mui/material/IconButton';
+import IconButton from "@mui/material/IconButton";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-const NavBar = ({handleDrawerClose}) => {
+const NavBar = ({ handleDrawerClose }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const matches = `/${pathname.split('/')[1]}`
 
   const navigation = [
     {
       name: "Dashboard",
       icon: <DashboardCustomizeIcon />,
-      route: "/",
+      path: "/",
     },
     {
       name: "Products",
       icon: <CategoryIcon />,
-      route: "/products",
+      path: "/products",
     },
 
     {
       name: "New Product",
       icon: <AddBoxIcon />,
-      route: "/new-product",
+      path: "/new-product",
     },
     {
       name: "Orders",
       icon: <ShoppingBasketIcon />,
-      route: "/orders",
+      path: "/orders",
     },
   ];
 
   return (
     <div>
-      <Toolbar sx={{pr: '5px!important'}}>
-        <Stack justifyContent="space-between" direction="row" alignItems="center" sx={{width: 1}}>
+      <Toolbar sx={{ pr: "5px!important" }}>
+        <Stack
+          justifyContent="space-between"
+          direction="row"
+          alignItems="center"
+          sx={{ width: 1 }}
+        >
           <img src={Logo} alt="Logo" width={150} />
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
@@ -59,14 +65,14 @@ const NavBar = ({handleDrawerClose}) => {
       </Toolbar>
       <Divider />
       <List>
-        {navigation.map((el, index) => (
+        {navigation.map(({ path, name, icon }) => (
           <ListItemButton
-            key={el.route}
-            selected={pathname === el.route}
-            onClick={() => navigate(el.route)}
+            key={path}
+            selected={matches === path}
+            onClick={() => navigate(path)}
           >
-            <ListItemIcon>{el.icon}</ListItemIcon>
-            <ListItemText primary={el.name} />
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText primary={name} />
           </ListItemButton>
         ))}
       </List>

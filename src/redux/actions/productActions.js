@@ -7,7 +7,7 @@ import {LIST_PRODUCTS, GET_PRODUCT} from '../types/productsType'
 export const getProducts = (index,limit) => async (dispatch) => {
     // console.log(userEmail,userPassword)
     
-    const products = await axios.get(`${URL}/products/azgarden/${index}/${limit}`);
+    const products = await axios.get(`${URL}/products/azgarden/hb/${index}/${limit}`);
     dispatch({ type: LIST_PRODUCTS, payload: products.data });
     //console.log("userInfo.data",userInfo.data);
     //localStorage.removeItem('userInfo');
@@ -16,7 +16,7 @@ export const getProducts = (index,limit) => async (dispatch) => {
   };
 
   export const getProduct = (id) => async (dispatch) => {
-    const product = await axios.get(`${URL}/products/getproduct/azgarden/${id}`);
+    const product = await axios.get(`${URL}/products/getproduct/hb/azgarden/${id}`);
     dispatch({ type: GET_PRODUCT, payload: product.data });
     return product.data
   };

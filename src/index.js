@@ -9,11 +9,13 @@ import Store from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
 import { theme } from "utils";
 
+// theme('dark') for dark mode, theme('light') for light mode
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={Store}>
       <BrowserRouter>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme('dark')}>
           <App />
         </ThemeProvider>
       </BrowserRouter>

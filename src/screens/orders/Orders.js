@@ -1,18 +1,19 @@
 import React from 'react'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import {Layout} from 'components'
+import {Orders as Component, Layout} from 'components'
 
-const Dashboard = () => {
+const Orders = () => {
   return (
     <Layout>
       <Container>
         <Typography variant='h2' sx={{ py: 4 }}>
-          Dashboard
+          Orders
         </Typography>
+        <Component/>
       </Container>
     </Layout>
   )
 }
 
-export default Dashboard
+export default Orders

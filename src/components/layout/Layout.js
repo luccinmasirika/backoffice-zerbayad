@@ -22,16 +22,12 @@ export default function Layout(props) {
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
       >
         <Drawer
           variant="temporary"
           open={isOpen}
           anchor="left"
           onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
           sx={{
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
@@ -40,12 +36,11 @@ export default function Layout(props) {
             },
           }}
         >
-          <NavBar />
+          <NavBar handleDrawerClose={handleDrawerToggle} />
         </Drawer>
         <Drawer
           variant="persistent"
-          open={isOpen}
-          onClose={handleDrawerToggle}
+          open={!isOpen}
           sx={{
             display: { xs: "none", sm: "block" },
             width: drawerWidth,
@@ -67,17 +62,19 @@ export default function Layout(props) {
           px: 1,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           overflow: "hidden",
-          transition: theme => theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
-          marginLeft: `-${drawerWidth}px`,
-          ...(isOpen && {
-            transition: theme => theme.transitions.create('margin', {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
+          transition: (theme) =>
+            theme.transitions.create("margin", {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.leavingScreen,
             }),
-            marginLeft: 0,
+          marginLeft: { sm: `-${drawerWidth}px` },
+          ...(!isOpen && {
+            transition: (theme) =>
+              theme.transitions.create("margin", {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
+            marginLeft: { sm: 0 },
           }),
         }}
       >

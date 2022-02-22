@@ -1,7 +1,8 @@
-import React,{useEffect} from 'react';
-import {useDispatch,useSelector} from 'react-redux'
-import TextField from '@mui/material/TextField';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import TextField from "@mui/material/TextField";
 import {
+  Stack,
   Grid,
   TableContainer,
   Table,
@@ -20,31 +21,38 @@ import {
   RadioGroup,
   FormControl,
   FormControlLabel,
-} from '@mui/material';
+} from "@mui/material";
 
-import {getOrder} from '../../redux/actions/orderActions'
+import { useNavigate, useParams  } from 'react-router-dom'
+
+import { getOrder } from "../../redux/actions/orderActions";
 
 function Order(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const  { id } = useParams();
 
-    const dispatch = useDispatch();
+  const order = useSelector((state) => state?.orders?.order);
 
-    const order = useSelector(state=>state?.orders?.order)
+  useEffect(() => {
+    dispatch(getOrder(id));
+  }, []);
 
-    useEffect(() => {
-    dispatch(getOrder(props.id));
-    }, []);
-    
-
-  return <div>
-   <Button onClick={()=>props.setShowCompo(3)} variant='contained' color='primary'>Go Back</Button>
-   <Typography component="h5" variant="h5" align='center'>
+  return (
+    <div>
+      <Button
+        onClick={() => navigate('/orders')}
+        variant="contained"
+        color="primary"
+      >
+        Go Back
+      </Button>
+      <Typography component="h5" variant="h5" align="center">
         Order Number : {order.data && order.data._id}
-    </Typography> 
-
-    <Grid container spacing={1}>
-      <Grid item md={9} xs={12}>
-
-      <Card >
+      </Typography>
+       
+       <Stack spacing={4}>
+       <Card>
             <List>
               <ListItem>
                 <Typography component="h4" variant="h4">
@@ -63,69 +71,75 @@ function Order(props) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {order.data && order.data.product.map((item) => (
-                        <TableRow key={item._id}>
-                          <TableCell>                      
-                                <img
-                                  src={item.image}
-                                  alt={item.name}
-                                  width={50}
-                                  height={50}
-                                ></img>
-                          </TableCell>
+                      {order.data &&
+                        order.data.product.map((item) => (
+                          <TableRow key={item._id}>
+                            <TableCell>
+                              <img
+                                src={item.image}
+                                alt={item.name}
+                                width={50}
+                                height={50}
+                              ></img>
+                            </TableCell>
 
-                          <TableCell>
-
-                                <Typography>{item.name}</Typography>
-                          </TableCell>
-                          <TableCell align="right">
-                            <Typography>{item.quantity}</Typography>
-                          </TableCell>
-                          <TableCell align="right">
-                            <Typography>{item.price}</Typography>
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                            <TableCell>
+                              <Typography>{item.name}</Typography>
+                            </TableCell>
+                            <TableCell align="right">
+                              <Typography>{item.quantity}</Typography>
+                            </TableCell>
+                            <TableCell align="right">
+                              <Typography>{item.price}</Typography>
+                            </TableCell>
+                          </TableRow>
+                        ))}
                     </TableBody>
                   </Table>
                 </TableContainer>
               </ListItem>
             </List>
           </Card>
-          </Grid>
 
-      <Grid item md={9} xs={12}>
-      <Grid container  direction="row" >    
-      <Card >
-      <List>
-      <ListItem>
-      <Typography component="h4" variant="h4">
-         Shipping Address
-       </Typography>  
-      </ListItem>  
-      <ListItem>
-          {order.data && <Typography variant='5'>{order.data.name} </Typography>}
-          
-          
-      </ListItem>
-      <ListItem>
-      {order.data && <Typography variant='h6'> {order.data.city} {order.data.postalcode} {order.data.country} </Typography>}
-      </ListItem>
-      <ListItem>
-      {order.data && <Typography variant='h6'>  {order.data.phone}</Typography>}
-      </ListItem>
-      <ListItem>
-      {order.data && <Typography variant='h6'>  {order.data.email}</Typography>}
-      </ListItem>
-      </List>
-      </Card>
+          <Card>
+              <List>
+                <ListItem>
+                  <Typography component="h4" variant="h4">
+                    Shipping Address
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  {order.data && (
+                    <Typography variant="5">{order.data.name} </Typography>
+                  )}
+                </ListItem>
+                <ListItem>
+                  {order.data && (
+                    <Typography variant="h6">
+                      {" "}
+                      {order.data.city} {order.data.postalcode}{" "}
+                      {order.data.country}{" "}
+                    </Typography>
+                  )}
+                </ListItem>
+                <ListItem>
+                  {order.data && (
+                    <Typography variant="h6"> {order.data.phone}</Typography>
+                  )}
+                </ListItem>
+                <ListItem>
+                  {order.data && (
+                    <Typography variant="h6"> {order.data.email}</Typography>
+                  )}
+                </ListItem>
+              </List>
+            </Card>
 
-    
-        </Grid>
-        </Grid>
+       </Stack>
 
-        </Grid>
-  </div>;
+        
+    </div>
+  );
 }
 
 export default Order;

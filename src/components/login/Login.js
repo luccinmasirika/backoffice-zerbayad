@@ -5,6 +5,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
   Button,
+  Box,
   Container,
   FormControl,
   IconButton,
@@ -65,6 +66,7 @@ const Login = () => {
   };
 
   return (
+    <Box sx={{bgcolor: 'background.paper'}}>
     <Container>
       <Stack
         sx={{ width: 1, minHeight: "100vh" }}
@@ -72,6 +74,7 @@ const Login = () => {
         alignItems="center"
       >
         <Paper
+        elevation={2}
           sx={{
             width: { xs: 1, sm: "70%", md: "50%" },
             mx: "auto",
@@ -142,6 +145,7 @@ const Login = () => {
         </Paper>
       </Stack>
     </Container>
+    </Box>
   );
 };
 

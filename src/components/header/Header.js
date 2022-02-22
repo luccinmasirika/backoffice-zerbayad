@@ -19,8 +19,6 @@ const Header = ({ onToggle, isOpen }) => {
     navigate("/login");
   };
 
-  console.log("isOpen", isOpen)
-
   React.useEffect(() => {
     const data = Cookies.get("user");
     if (data) {
@@ -37,9 +35,9 @@ const Header = ({ onToggle, isOpen }) => {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
-        ...(isOpen && {
-          width: `calc(100% - ${drawerWidth}px)`,
-          ml: `${drawerWidth}px`,
+        ...(!isOpen && {
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          marginLeft: { sm: `${drawerWidth}px` },
           transition: (theme) =>
             theme.transitions.create(["margin", "width"], {
               easing: theme.transitions.easing.easeOut,
@@ -54,7 +52,7 @@ const Header = ({ onToggle, isOpen }) => {
           aria-label="open drawer"
           edge="start"
           onClick={onToggle}
-          sx={{ mr: 2, ...(isOpen && { display: 'none' }) }}
+          sx={{ mr: 2, ...(!isOpen && { display: {sm: "none"} }) }}
         >
           <MenuIcon />
         </IconButton>
@@ -69,7 +67,7 @@ const Header = ({ onToggle, isOpen }) => {
           </Typography>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Typography variant="h6" noWrap component="div">
-              {user?.firstname} {user?.lastName}
+              {user?.firstName} {user?.lastName}
             </Typography>
             <IconButton onClick={onLogout}>
               <LogoutIcon sx={{ color: "white" }} />
