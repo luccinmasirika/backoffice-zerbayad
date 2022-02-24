@@ -11,7 +11,6 @@ const initialState = {
 };
 
 export const darkModeReducer = (state = initialState, action) => {
-  console.log(action.payload);
   switch (action.type) {
     case DARK_MODE:
       return {

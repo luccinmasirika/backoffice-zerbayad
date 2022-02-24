@@ -6,6 +6,7 @@ import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import { ListItemButton, Stack } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
@@ -57,7 +58,8 @@ const NavBar = ({ handleDrawerClose }) => {
           alignItems="center"
           sx={{ width: 1 }}
         >
-          <img src={Logo} alt="Logo" width={150} />
+          {/* <img src={Logo} alt="Logo" width={150} /> */}
+          <Typography variant="h4" fontWeight={700}>Logo</Typography>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
           </IconButton>
