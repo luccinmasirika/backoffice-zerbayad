@@ -1,10 +1,10 @@
-import Cookies from 'js-cookie';
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AuthRoute = () => {
-  const jwt = Cookies.get('jwt');
-  return !jwt ? <Outlet /> : <Navigate to='/' replace />;
+  const { isAuth } = useSelector((state) => state.auth);
+  return isAuth ? <Navigate to="/" replace /> : <Outlet />;
 };
 
 export default AuthRoute;

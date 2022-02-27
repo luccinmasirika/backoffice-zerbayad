@@ -2,7 +2,7 @@ import { DARK_MODE } from "../types/darkModeType";
 
 const getInitialStateMode = () => {
   const serialisedState = localStorage.getItem("themeMode");
-  if (serialisedState === null) return undefined;
+  if (serialisedState === null) return "light";
   return serialisedState
 };
 

@@ -13,11 +13,14 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "redux/actions/darkModeAction";
+import { signOut } from 'firebase/auth' 
+import { auth } from "config/firebase"
+import { authenticated, onLogin, onLogOut } from "redux/actions/authAction";
 
 const Header = ({ onToggle, isOpen }) => {
-  const navigate = useNavigate();
-  const [user, setUser] = React.useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); 
+
   const {mode} = useSelector((state) => state.themeMode);
 
   const switchDarkMode = () => {
@@ -26,18 +29,11 @@ const Header = ({ onToggle, isOpen }) => {
       : dispatch(handledarkMode("dark"));
   };
 
-  const onLogout = () => {
-    Cookies.remove("jwt");
-    Cookies.remove("user");
+  const logout = () => {
+    signOut(auth)
+    dispatch(onLogOut());
     navigate("/login");
   };
-
-  React.useEffect(() => {
-    const data = Cookies.get("user");
-    if (data) {
-      setUser(JSON.parse(data));
-    }
-  }, []);
 
   return (
     <AppBar
@@ -83,9 +79,9 @@ const Header = ({ onToggle, isOpen }) => {
               {mode === 'dark' ? <DarkModeIcon/> : <LightModeIcon /> }
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              {user?.firstName} {user?.lastName}
+              Logout
             </Typography>
-            <IconButton onClick={onLogout}>
+            <IconButton onClick={logout}>
               <LogoutIcon sx={{ color: "white" }} />
             </IconButton>
           </Stack>
